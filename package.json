@@ -1,0 +1,27 @@
+{
+  "name": "denim-store",
+  "version": "1.0.0",
+  "description": "MERN Stack Ecommerce Website for Denim Jeans",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd backend && npm run dev",
+    "client": "cd frontend && npm start",
+    "install-server": "cd backend && npm install",
+    "install-client": "cd frontend && npm install",
+    "install-all": "npm run install-server && npm run install-client",
+    "seed": "cd backend && node seed.js"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  },
+  "keywords": [
+    "ecommerce",
+    "mern",
+    "react",
+    "express",
+    "mongodb",
+    "denim"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}
