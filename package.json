@@ -23,5 +23,8 @@
     "denim"
   ],
   "author": "Your Name",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "mongoose": "^8.18.0"
+  }
 }
