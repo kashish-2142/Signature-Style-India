@@ -12,14 +12,18 @@ const Orders = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Redirect if not logged in
-  if (!user) {
-    navigate("/login");
-    return null;
-  }
+  // Redirect if not logged in (must be inside a hook to avoid conditional hooks)
+  useEffect(() => {
+    if (!user) {
+      navigate("/login", { replace: true });
+    }
+  }, [user, navigate]);
 
   // Fetch user's orders when component mounts
   useEffect(() => {
+    if (!user) {
+      return;
+    }
     const fetchOrders = async () => {
       try {
         setLoading(true);
@@ -35,7 +39,7 @@ const Orders = () => {
     };
 
     fetchOrders();
-  }, []);
+  }, [user]);
 
   // Format date for display
   const formatDate = (dateString) => {
@@ -65,7 +69,7 @@ const Orders = () => {
     }
   };
 
-  if (loading) {
+  if (!user || loading) {
     return (
       <div className="container">
         <div className="loading">Loading your orders...</div>
