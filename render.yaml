@@ -25,4 +25,4 @@ services:
     staticPublishPath: frontend/build
     envVars:
       - key: REACT_APP_API_URL
-        value: https://denim-store-backend.onrender.com
+        value: https://signature-style-india-5.onrender.com
