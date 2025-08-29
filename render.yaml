@@ -10,7 +10,7 @@ services:
       - key: NODE_ENV
         value: production
       - key: MONGODB_URI
-        sync: false  # This will be set in Render dashboard
+        value: mongodb+srv://kashishsrajawat_db_user:w7WqfrxofdXGTApc@denim-clothing.tyvkkhh.mongodb.net/denim-clothing
       - key: JWT_SECRET
         sync: false  # This will be set in Render dashboard
       - key: PORT

@@ -10,6 +10,12 @@ const api = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+  // Add SSL configuration for development
+  ...(process.env.NODE_ENV === 'development' && {
+    httpsAgent: new (require('https').Agent)({
+      rejectUnauthorized: false
+    })
+  })
 });
 
 // Add auth token to requests if available
@@ -20,6 +26,24 @@ api.interceptors.request.use((config) => {
   }
   return config;
 });
+
+// Add error handling for SSL issues
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.code === 'ECONNRESET' || error.message.includes('SSL')) {
+      console.error('SSL/TLS Error:', error.message);
+      // Retry with different SSL configuration
+      return api.request({
+        ...error.config,
+        httpsAgent: new (require('https').Agent)({
+          rejectUnauthorized: false
+        })
+      });
+    }
+    return Promise.reject(error);
+  }
+);
 
 // Authentication API calls
 export const authAPI = {

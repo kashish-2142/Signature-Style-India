@@ -5,7 +5,7 @@ async function testFrontendLogin() {
     console.log("Testing frontend login API call...");
 
     const response = await axios.post(
-      "http://localhost:5001/api/auth/login",
+      "http://localhost:5000/api/auth/login",
       {
         email: "admin@demo.com",
         password: "password123",
