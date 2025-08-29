@@ -13,7 +13,9 @@ const app = express();
 
 // Middleware
 const corsOptions = {
-  origin: ["http://localhost:3000", "http://localhost:3001"], // Allow frontend origins
+  origin: process.env.NODE_ENV === 'production' 
+    ? ['https://denim-store-frontend.onrender.com', 'https://your-frontend-domain.com'] // Production origins
+    : ["http://localhost:3000", "http://localhost:3001"], // Development origins
   credentials: true, // Allow cookies and credentials
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
@@ -22,6 +24,11 @@ app.use(cors(corsOptions)); // Enable Cross-Origin Resource Sharing with specifi
 app.use(express.json()); // Parse JSON request bodies
 
 // Connect to MongoDB
+if (!process.env.MONGODB_URI) {
+  console.error("MONGODB_URI environment variable is not set!");
+  process.exit(1);
+}
+
 mongoose
   .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,

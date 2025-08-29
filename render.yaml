@@ -1,0 +1,28 @@
+services:
+  # Backend API Service
+  - type: web
+    name: denim-store-backend
+    env: node
+    plan: free
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false  # This will be set in Render dashboard
+      - key: JWT_SECRET
+        sync: false  # This will be set in Render dashboard
+      - key: PORT
+        value: 10000
+
+  # Frontend Static Site
+  - type: web
+    name: denim-store-frontend
+    env: static
+    plan: free
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: frontend/build
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://denim-store-backend.onrender.com
