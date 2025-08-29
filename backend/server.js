@@ -14,7 +14,7 @@ const app = express();
 // Middleware
 const corsOptions = {
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://denim-store-frontend.onrender.com', 'https://your-frontend-domain.com'] // Production origins
+    ? [process.env.CORS_ORIGIN || 'https://signature-style-india-7.onrender.com'] // Production origins
     : ["http://localhost:3000", "http://localhost:3001"], // Development origins
   credentials: true, // Allow cookies and credentials
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
